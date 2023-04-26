@@ -1,5 +1,6 @@
 package com.example.med_check_app
 
+import android.icu.text.CaseMap.Title
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +35,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen(){
+    topBar()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -41,7 +44,9 @@ fun HomeScreen(){
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Gray,
                 contentColor = Color.Black),
-            modifier = Modifier.width(300.dp).padding(20.dp),
+            modifier = Modifier
+                .width(300.dp)
+                .padding(20.dp),
             onClick = {/*TODO*/}) {
             Text("Medicin", fontSize = 30.sp)
 
@@ -50,7 +55,9 @@ fun HomeScreen(){
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Gray,
                 contentColor = Color.Black),
-            modifier = Modifier.width(300.dp).padding(20.dp),
+            modifier = Modifier
+                .width(300.dp)
+                .padding(20.dp),
             onClick = { /*TODO*/ }) {
             Text("Påmindelser", fontSize = 30.sp)
         }
@@ -58,13 +65,27 @@ fun HomeScreen(){
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Gray,
                 contentColor = Color.Black),
-            modifier = Modifier.width(300.dp).padding(20.dp),
+            modifier = Modifier
+                .width(300.dp)
+                .padding(20.dp),
             onClick = { /*TODO*/ }) {
             Text("Bestil Medicin", fontSize = 30.sp)
         }
     }
 }
 
+@Composable
+fun topBar() {
+    TopAppBar(title = {
+        Text(
+            text = "Medicin Appen",
+            style = MaterialTheme.typography.h6,
+            textAlign = TextAlign.Center,
+            fontSize = 30.sp,
+
+        )
+    })
+}
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
