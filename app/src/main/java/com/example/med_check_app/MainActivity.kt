@@ -1,5 +1,6 @@
 package com.example.med_check_app
 
+import android.content.Intent
 import android.icu.text.CaseMap.Title
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.med_check_app.ui.theme.MedcheckappTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen()
+                    HomeScreen(this@MainActivity)
                 }
             }
         }
@@ -34,7 +36,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(activity: ComponentActivity){
     topBar()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -47,7 +49,10 @@ fun HomeScreen(){
             modifier = Modifier
                 .width(300.dp)
                 .padding(20.dp),
-            onClick = {/*TODO*/}) {
+            onClick = {
+                val MedicinPage = Intent(activity, MedicinPage::class.java)
+                activity.startActivity(MedicinPage)
+            }) {
             Text("Medicin", fontSize = 30.sp)
 
         }
@@ -90,6 +95,6 @@ fun topBar() {
 @Composable
 fun DefaultPreview() {
     MedcheckappTheme {
-        HomeScreen()
+        HomeScreen(activity = ComponentActivity())
     }
 }
