@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavController
 import com.example.med_check_app.ui.theme.MedcheckappTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen(this@MainActivity)
+                    topBar()
+                    Navigation()
                 }
             }
         }
@@ -36,8 +38,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen(activity: ComponentActivity){
-    topBar()
+fun HomeScreen(navController: NavController){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -50,8 +51,7 @@ fun HomeScreen(activity: ComponentActivity){
                 .width(300.dp)
                 .padding(20.dp),
             onClick = {
-                val MedicinPage = Intent(activity, MedicinPage::class.java)
-                activity.startActivity(MedicinPage)
+                navController.navigate(Screen.MedicinPage.route)
             }) {
             Text("Medicin", fontSize = 30.sp)
 
@@ -80,6 +80,16 @@ fun HomeScreen(activity: ComponentActivity){
 }
 
 @Composable
+fun MedicinPage() {
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize()){
+        Text(text = "Testing", fontSize = 50.sp)
+    }
+}
+
+@Composable
 fun topBar() {
     TopAppBar(title = {
         Text(
@@ -95,6 +105,6 @@ fun topBar() {
 @Composable
 fun DefaultPreview() {
     MedcheckappTheme {
-        HomeScreen(activity = ComponentActivity())
+
     }
 }
