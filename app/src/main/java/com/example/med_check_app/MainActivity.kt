@@ -1,6 +1,5 @@
 package com.example.med_check_app
 
-import android.content.Intent
 import android.icu.text.CaseMap.Title
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -34,58 +33,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun HomeScreen(navController: NavController){
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()) {
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Gray,
-                contentColor = Color.Black),
-            modifier = Modifier
-                .width(300.dp)
-                .padding(20.dp),
-            onClick = {
-                navController.navigate(Screen.MedicinPage.route)
-            }) {
-            Text("Medicin", fontSize = 30.sp)
-
-        }
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Gray,
-                contentColor = Color.Black),
-            modifier = Modifier
-                .width(300.dp)
-                .padding(20.dp),
-            onClick = { /*TODO*/ }) {
-            Text("Påmindelser", fontSize = 30.sp)
-        }
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Gray,
-                contentColor = Color.Black),
-            modifier = Modifier
-                .width(300.dp)
-                .padding(20.dp),
-            onClick = { /*TODO*/ }) {
-            Text("Bestil Medicin", fontSize = 30.sp)
-        }
-    }
-}
-
-@Composable
-fun MedicinPage() {
-    Column (
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()){
-        Text(text = "Testing", fontSize = 50.sp)
     }
 }
 

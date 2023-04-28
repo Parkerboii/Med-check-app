@@ -15,5 +15,11 @@ fun Navigation() {
         composable(route = Screen.MedicinPage.route){
             MedicinPage()
         }
+        composable(route = Screen.ReminderPage.route){
+            ReminderPage()
+        }
+        composable(route = Screen.OrderPage.route){
+            OrderPage()
+        }
     }
 }
