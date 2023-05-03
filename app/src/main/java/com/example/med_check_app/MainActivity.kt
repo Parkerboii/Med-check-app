@@ -1,24 +1,20 @@
 package com.example.med_check_app
 
-import android.icu.text.CaseMap.Title
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
-import androidx.navigation.NavController
 import com.example.med_check_app.ui.theme.MedcheckappTheme
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -28,16 +24,25 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    topBar()
-                    Navigation()
+                    val scaffoldState = rememberScaffoldState()
+                    Scaffold(
+                        scaffoldState = scaffoldState,
+                        modifier = Modifier.fillMaxSize(),
+                        topBar = {TopBar()},
+                        //bottomBar = { /*your bottom bar composable*/ }
+                    ) {
+                        Navigation()
+                    }
                 }
+
             }
         }
     }
 }
 
+
 @Composable
-fun topBar() {
+fun TopBar() {
     TopAppBar(title = {
         Text(
             text = "Medicin Appen",
@@ -48,10 +53,12 @@ fun topBar() {
         )
     })
 }
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     MedcheckappTheme {
-
+        TopBar()
+        Navigation()
     }
 }
