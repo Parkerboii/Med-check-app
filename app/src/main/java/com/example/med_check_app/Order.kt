@@ -1,6 +1,7 @@
 package com.example.med_check_app
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,6 +14,36 @@ import androidx.navigation.NavController
 
 @Composable
 fun OrderContent() {
+    Column(
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Top,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Transparent,
+                contentColor = Color.Black
+            ),
+            modifier = Modifier
+                .width(500.dp)
+                .padding(20.dp),
+            onClick = {
+            }) {
+            Text("Paracetamol", fontSize = 30.sp)
+        }
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Transparent,
+                contentColor = Color.Black
+            ),
+            modifier = Modifier
+                .width(500.dp)
+                .padding(20.dp),
+            onClick = {
+            }) {
+            Text("Morfin", fontSize = 30.sp)
+        }
+    }
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -21,7 +52,7 @@ fun OrderContent() {
     ) {
         Button(
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Gray,
+                backgroundColor = Color.Cyan,
                 contentColor = Color.Black
             ),
             modifier = Modifier
