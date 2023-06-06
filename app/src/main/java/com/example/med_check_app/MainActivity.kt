@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         scaffoldState = scaffoldState,
                         modifier = Modifier.fillMaxSize(),
-                        topBar = {TopBar()},
+
                         //bottomBar = { /*your bottom bar composable*/ }
                     ) {
                         Navigation()

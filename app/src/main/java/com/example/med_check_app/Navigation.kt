@@ -10,7 +10,7 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.MainScreen.route){
         composable(route = Screen.MainScreen.route){
-            HomeScreen(navController = navController)
+            HomePage(navController = navController)
         }
         composable(route = Screen.MedicinPage.route){
             MedicinPage()
