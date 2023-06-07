@@ -1,5 +1,6 @@
 package com.example.med_check_app
 
+import ReminderContentButtons
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
