@@ -43,12 +43,22 @@ fun ReminderContent() {
             elevation = 4.dp
         ) {
             Text(
-                text = "Tid",
-                text = "Medicin",
-                modifier = Modifier.padding(16.dp).width(300.dp),
+                text = "             Tid",
+                modifier = Modifier
+                    .padding(16.dp)
+                    .width(320.dp),
+                style = MaterialTheme.typography.body1,
+                fontSize = 23.sp
+            )
+            Text(
+                text = "                                 Medicin",
+                modifier = Modifier
+                    .padding(16.dp)
+                    .width(320.dp),
                 style = MaterialTheme.typography.body1,
                 fontSize = 23.sp
             )
         }
+        ReminderContentButtons()
     }
 }
