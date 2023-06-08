@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "256516390372",
+    "firebase_url": "https://medapp-befbc-default-rtdb.firebaseio.com",
+    "project_id": "medapp-befbc",
+    "storage_bucket": "medapp-befbc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256516390372:android:63f21c4526c824ca8b5bf1",
+        "android_client_info": {
+          "package_name": "com.thebois"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256516390372-qgv2dg56ed5poq7fgq561tra6gp4gdte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqcPxRgxNZ6W0yxiExhHJqUopFz32Wscc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256516390372-qgv2dg56ed5poq7fgq561tra6gp4gdte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
