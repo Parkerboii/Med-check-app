@@ -20,6 +20,7 @@ fun ReminderPage() {
         content = { ReminderContent() }
     )
 }
+
 @Composable
 fun ReminderTopBar() {
     TopAppBar(title = {
