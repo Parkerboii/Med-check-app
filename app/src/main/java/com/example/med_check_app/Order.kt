@@ -3,6 +3,8 @@ package com.example.med_check_app
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,6 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import kotlinx.coroutines.delay
 
 @Composable
 fun OrderContent() {
@@ -22,6 +25,7 @@ fun OrderContent() {
 
     var showOrderButton by remember { mutableStateOf(false) }
     var showConfirmationButton by remember { mutableStateOf(false) }
+    var showOrderConfirmed by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -114,13 +118,28 @@ fun OrderContent() {
                         showMorfinArrival = false
                         showParacetamolArrival = false
                         showConfirmationButton = !showConfirmationButton
+                        showOrderConfirmed = true
                     }
                 ) {
                     Text("Bekræft Bestilling", fontSize = 25.sp)
                 }
             }
 
+            if (showOrderConfirmed) {
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = "Bestilling bekræftet",
+                    tint = Color.Green,
+                    modifier = Modifier.size(100.dp)
+                )
+                Text("Bestilling bekræftet", fontSize = 30.sp)
+                LaunchedEffect(Unit) {
+                    delay(1200)
+                    showOrderConfirmed = false
+                }
+            }
         }
+
 
         Row(
             horizontalArrangement = Arrangement.Center,
