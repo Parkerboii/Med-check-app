@@ -2,8 +2,6 @@ package com.example.med_check_app
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,77 +12,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-/*@Composable
-fun OrderContent() {
-    Column(
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.Top,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Transparent,
-                contentColor = Color.Black
-            ),
-            modifier = Modifier
-                .width(500.dp)
-                .padding(20.dp),
-            onClick = {
-            }) {
-            Text("Paracetamol", fontSize = 30.sp)
-        }
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Transparent,
-                contentColor = Color.Black
-            ),
-            modifier = Modifier
-                .width(500.dp)
-                .padding(20.dp),
-            onClick = {
-            }) {
-            Text("Morfin", fontSize = 30.sp)
-        }
-    }
-
-    Column(
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.Bottom,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Cyan,
-                contentColor = Color.Black
-            ),
-            modifier = Modifier
-                .width(280.dp)
-                .padding(20.dp),
-            onClick = {
-            }) {
-            Text("Leveringsstatus", fontSize = 25.sp)
-    }
-    }
-    Column(
-        horizontalAlignment = Alignment.End,
-        verticalArrangement = Arrangement.Bottom,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Button(
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Gray,
-                contentColor = Color.Black
-            ),
-            modifier = Modifier
-                .width(150.dp)
-                .padding(20.dp),
-            onClick = {
-            }) {
-            Text("Bestil", fontSize = 25.sp)
-        }
-    }
-}
-*/
 @Composable
 fun OrderContent() {
     var showParacetamolArrival by remember { mutableStateOf(false) }
@@ -93,8 +20,8 @@ fun OrderContent() {
     var showMorfinArrival by remember { mutableStateOf(false) }
     var morfinArrival by remember { mutableStateOf("") }
 
+    var showOrderButton by remember { mutableStateOf(false) }
     var showConfirmationButton by remember { mutableStateOf(false) }
-    var showConfirmationText by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -106,7 +33,7 @@ fun OrderContent() {
         ) {
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent,
+                    backgroundColor = if (showParacetamolArrival) Color.Green else Color.Transparent,
                     contentColor = Color.Black
                 ),
                 modifier = Modifier
@@ -119,6 +46,8 @@ fun OrderContent() {
                     } else {
                         paracetamolArrival = ""
                     }
+                    showOrderButton = true
+                    showConfirmationButton = false
                 }
             ) {
                 Text("Paracetamol", fontSize = 30.sp)
@@ -126,7 +55,7 @@ fun OrderContent() {
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Transparent,
+                    backgroundColor = if (showMorfinArrival) Color.Green else Color.Transparent,
                     contentColor = Color.Black
                 ),
                 modifier = Modifier
@@ -139,6 +68,8 @@ fun OrderContent() {
                     } else {
                         morfinArrival = ""
                     }
+                    showOrderButton = true
+                    showConfirmationButton = false
                 }
             ) {
                 Text("Morfin", fontSize = 30.sp)
@@ -180,7 +111,9 @@ fun OrderContent() {
                         .width(300.dp)
                         .padding(top = 16.dp),
                     onClick = {
-                        showConfirmationText = !showConfirmationText
+                        showMorfinArrival = false
+                        showParacetamolArrival = false
+                        showConfirmationButton = !showConfirmationButton
                     }
                 ) {
                     Text("Bekræft Bestilling", fontSize = 25.sp)
@@ -214,35 +147,24 @@ fun OrderContent() {
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.Gray,
+                    backgroundColor = if (showOrderButton) Color.Green else Color.Gray,
                     contentColor = Color.Black
                 ),
                 modifier = Modifier.width(200.dp),
                 onClick = {
-                    showConfirmationButton = !showConfirmationButton
-                    showConfirmationText = false
+                    showConfirmationButton = true
+                    showOrderButton = showMorfinArrival || showParacetamolArrival
+                    showConfirmationButton = !(!showMorfinArrival && !showParacetamolArrival)
+                    showOrderButton = paracetamolArrival.isEmpty() && morfinArrival.isEmpty()
                 }
-            ) {
+            ) {if (!showMorfinArrival && !showParacetamolArrival) {
+                showOrderButton = false
+            }
                 Text("Bestil", fontSize = 25.sp)
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @Composable
 fun OrderTopBar() {
@@ -252,10 +174,10 @@ fun OrderTopBar() {
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
             fontSize = 30.sp,
-
-            )
+        )
     })
 }
+
 @Composable
 fun OrderPage() {
     Scaffold(
@@ -263,3 +185,5 @@ fun OrderPage() {
         content = { OrderContent() }
     )
 }
+
+
