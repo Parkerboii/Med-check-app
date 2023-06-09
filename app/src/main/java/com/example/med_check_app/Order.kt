@@ -1,5 +1,6 @@
 package com.example.med_check_app
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -197,6 +198,7 @@ fun OrderTopBar() {
     })
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun OrderPage() {
     Scaffold(

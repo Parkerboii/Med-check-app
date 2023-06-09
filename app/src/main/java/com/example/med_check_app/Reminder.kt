@@ -13,31 +13,35 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ReminderContent() {
-    Column (
+    Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()){
+        modifier = Modifier.fillMaxSize()
+    ) {
         Card(
             modifier = Modifier.padding(16.dp),
             backgroundColor = Color(0xFF999999),
             elevation = 4.dp
         ) {
-            Text(
-                text = "             Tid",
+            Row(
                 modifier = Modifier
-                    .padding(16.dp)
-                    .width(320.dp),
-                style = MaterialTheme.typography.body1,
-                fontSize = 23.sp
-            )
-            Text(
-                text = "                                 Medicin",
-                modifier = Modifier
-                    .padding(16.dp)
-                    .width(320.dp),
-                style = MaterialTheme.typography.body1,
-                fontSize = 23.sp
-            )
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Tid",
+                    style = MaterialTheme.typography.body1,
+                    fontSize = 23.sp,
+                    modifier = Modifier.weight(1f).padding(horizontal = 60.dp)
+                )
+                Text(
+                    text = "Medicin",
+                    style = MaterialTheme.typography.body1,
+                    fontSize = 23.sp,
+                    modifier = Modifier.weight(1f).padding(horizontal = 10.dp)
+                )
+            }
         }
         ReminderContentButtons()
     }
