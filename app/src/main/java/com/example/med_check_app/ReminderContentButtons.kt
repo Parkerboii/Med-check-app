@@ -18,16 +18,12 @@ import kotlinx.coroutines.launch
 @Composable
 fun ReminderContentButtons(){
     val tasks = remember { mutableStateListOf("Paracetamol", "Morfin", "Paracetamol") }
-    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
         tasks.forEachIndexed { index, task ->
             var isChecked by remember { mutableStateOf(false) }
-            var isTimerSet by remember { mutableStateOf(false) }
-            var countdownJob: Job? by remember { mutableStateOf(null) }
-            var countdownSeconds by remember { mutableStateOf(10) }
 
             Column(
                 modifier = Modifier
@@ -38,9 +34,7 @@ fun ReminderContentButtons(){
                         shape = MaterialTheme.shapes.medium
                     )
                     .padding(8.dp)
-                    .clickable {
-                        isTimerSet = true
-                    }
+
                     .width(335.dp)
             ) {
                 Row(
@@ -52,17 +46,6 @@ fun ReminderContentButtons(){
                         modifier = Modifier.padding(end = 8.dp)
                     )
                     Text(text = task)
-                }
-            }
-
-            if (isTimerSet && countdownJob == null) {
-                countdownJob = coroutineScope.launch {
-                    for (seconds in countdownSeconds downTo 1) {
-                        countdownSeconds = seconds
-                        delay(1000L) // 1 second delay
-                    }
-                    isTimerSet = false
-                    countdownJob = null
                 }
             }
         }
