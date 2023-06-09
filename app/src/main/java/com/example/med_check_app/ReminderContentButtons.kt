@@ -41,7 +41,7 @@ fun ReminderContentButtons(){
                     .clickable {
                         isTimerSet = true
                     }
-                    .width(300.dp)
+                    .width(335.dp)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
