@@ -64,29 +64,39 @@ fun ReminderContentButtons() {
     val context = LocalContext.current
 
     if (isTimePickerVisible) {
-        showTimePickerDialog(context) { time ->
-            selectedTime = time
+        LaunchedEffect(isTimePickerVisible) {
+            val time = showTimePickerDialog(context)
+            if (time != null) {
+                selectedTime = time
+            }
             isTimePickerVisible = false
         }
     }
 }
 
 @SuppressLint("NewApi")
-fun showTimePickerDialog(context: Context, onTimeSelected: (String) -> Unit) {
+fun showTimePickerDialog(context: Context): String? {
     val calendar = Calendar.getInstance()
     val hour = calendar.get(Calendar.HOUR_OF_DAY)
     val minute = calendar.get(Calendar.MINUTE)
 
+    var selectedTime: String? = null
+
     val timePickerDialog = TimePickerDialog(
         context,
         { _, selectedHour, selectedMinute ->
-            val time = String.format("%02d:%02d", selectedHour, selectedMinute)
-            onTimeSelected(time)
+            selectedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
         },
         hour,
         minute,
         true
     )
 
+    timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, "Cancel") { dialog, _ ->
+        dialog.dismiss()
+    }
+
     timePickerDialog.show()
+
+    return selectedTime
 }
