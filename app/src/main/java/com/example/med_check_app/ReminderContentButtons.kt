@@ -1,6 +1,4 @@
 import android.annotation.SuppressLint
-import android.app.TimePickerDialog
-import android.content.Context
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -9,17 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Checkbox
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import com.example.med_check_app.showTimePickerDialog
 import java.util.*
 
 @SuppressLint("UnrememberedMutableState")
@@ -72,31 +66,4 @@ fun ReminderContentButtons() {
             isTimePickerVisible = false
         }
     }
-}
-
-@SuppressLint("NewApi")
-fun showTimePickerDialog(context: Context): String? {
-    val calendar = Calendar.getInstance()
-    val hour = calendar.get(Calendar.HOUR_OF_DAY)
-    val minute = calendar.get(Calendar.MINUTE)
-
-    var selectedTime: String? = null
-
-    val timePickerDialog = TimePickerDialog(
-        context,
-        { _, selectedHour, selectedMinute ->
-            selectedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
-        },
-        hour,
-        minute,
-        true
-    )
-
-    timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, "Cancel") { dialog, _ ->
-        dialog.dismiss()
-    }
-
-    timePickerDialog.show()
-
-    return selectedTime
 }
