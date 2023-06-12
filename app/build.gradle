@@ -4,6 +4,7 @@ plugins {
 
 }
 
+
 android {
     namespace 'com.example.med_check_app'
     compileSdk 33
