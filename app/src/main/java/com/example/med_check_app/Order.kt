@@ -1,8 +1,11 @@
 package com.example.med_check_app
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -10,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -18,66 +22,58 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun OrderContent() {
-    var showParacetamolArrival by remember { mutableStateOf(false) }
-    var paracetamolArrival by remember { mutableStateOf("") }
-
-    var showMorfinArrival by remember { mutableStateOf(false) }
-    var morfinArrival by remember { mutableStateOf("") }
-
     var showOrderButton by remember { mutableStateOf(false) }
     var showConfirmationButton by remember { mutableStateOf(false) }
     var showOrderConfirmed by remember { mutableStateOf(false) }
 
+    val medications = remember {
+        mutableStateListOf("Paracetamol", "Morfin", "Propanolol", "Terbutalin","Paracetamol", "Morfin", "Propanolol", "Terbutalin","Paracetamol", "Morfin", "Propanolol", "Terbutalin")
+    }
+    val selectedMedications = remember { mutableStateListOf<String>() }
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        Column(
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Top,
+        LazyColumn(
             modifier = Modifier.padding(bottom = 100.dp)
         ) {
-            Button(
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (showParacetamolArrival) Color.Green else Color.Transparent,
-                    contentColor = Color.Black
-                ),
-                modifier = Modifier
-                    .width(500.dp)
-                    .padding(20.dp),
-                onClick = {
-                    showParacetamolArrival = !showParacetamolArrival
-                    if (showParacetamolArrival) {
-                        paracetamolArrival = "Paracetamol ankomst: d.6/7"
-                    } else {
-                        paracetamolArrival = ""
-                    }
-                    showOrderButton = true
-                    showConfirmationButton = false
-                }
-            ) {
-                Text("Paracetamol", fontSize = 30.sp)
-            }
+            items(medications) { medication ->
+                var isSelected by remember { mutableStateOf(false) }
 
-            Button(
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (showMorfinArrival) Color.Green else Color.Transparent,
-                    contentColor = Color.Black
-                ),
-                modifier = Modifier
-                    .width(500.dp)
-                    .padding(20.dp),
-                onClick = {
-                    showMorfinArrival = !showMorfinArrival
-                    if (showMorfinArrival) {
-                        morfinArrival = "Morfin ankomst: d.6/7"
-                    } else {
-                        morfinArrival = ""
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                        .background(
+                            color = Color.White,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .clickable {
+                            isSelected = !isSelected
+                            if (isSelected) {
+                                selectedMedications.add(medication)
+                            } else {
+                                selectedMedications.remove(medication)
+                            }
+                            showOrderButton = selectedMedications.isNotEmpty()
+                            showConfirmationButton = false
+                        }
+                        .padding(8.dp)
+                        .border(
+                            width = 1.dp,
+                            color = Color.Gray,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(
+                            checked = isSelected,
+                            onCheckedChange = { isSelected = it },
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text(text = medication)
                     }
-                    showOrderButton = true
-                    showConfirmationButton = false
                 }
-            ) {
-                Text("Morfin", fontSize = 30.sp)
             }
         }
 
@@ -86,46 +82,6 @@ fun OrderContent() {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            if (showParacetamolArrival && paracetamolArrival.isNotEmpty()) {
-                TextField(
-                    value = paracetamolArrival,
-                    onValueChange = { },
-                    label = { Text("Paracetamol Ankomst") },
-                    readOnly = true,
-                    modifier = Modifier.padding(16.dp)
-                )
-            }
-
-            if (showMorfinArrival && morfinArrival.isNotEmpty()) {
-                TextField(
-                    value = morfinArrival,
-                    onValueChange = { },
-                    label = { Text("Morfin Ankomst") },
-                    readOnly = true,
-                    modifier = Modifier.padding(16.dp)
-                )
-            }
-
-            if (showConfirmationButton) {
-                Button(
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color.Green,
-                        contentColor = Color.Black
-                    ),
-                    modifier = Modifier
-                        .width(300.dp)
-                        .padding(top = 16.dp),
-                    onClick = {
-                        showMorfinArrival = false
-                        showParacetamolArrival = false
-                        showConfirmationButton = !showConfirmationButton
-                        showOrderConfirmed = true
-                    }
-                ) {
-                    Text("Bekræft Bestilling", fontSize = 25.sp)
-                }
-            }
-
             if (showOrderConfirmed) {
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
@@ -140,7 +96,6 @@ fun OrderContent() {
                 }
             }
         }
-
 
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -172,16 +127,62 @@ fun OrderContent() {
                 ),
                 modifier = Modifier.width(200.dp),
                 onClick = {
-                    showConfirmationButton = true
-                    showOrderButton = showMorfinArrival || showParacetamolArrival
-                    showConfirmationButton = !(!showMorfinArrival && !showParacetamolArrival)
-                    showOrderButton = paracetamolArrival.isEmpty() && morfinArrival.isEmpty()
+                    if (selectedMedications.isNotEmpty()) {
+                        showConfirmationButton = true
+                        showOrderButton = false
+                    }
                 }
-            ) {if (!showMorfinArrival && !showParacetamolArrival) {
-                showOrderButton = false
-            }
+            ) {
                 Text("Bestil", fontSize = 25.sp)
             }
+        }
+
+        if (showConfirmationButton) {
+            AlertDialog(
+                onDismissRequest = {
+                    showConfirmationButton = false
+                    showOrderButton = true
+                },
+                title = {
+                    Text(text = "Valgte Mediciner")
+                },
+                text = {
+                    Column(
+                        modifier = Modifier.verticalScroll(rememberScrollState())
+                    ) {
+                        selectedMedications.forEach { medication ->
+                            val arrivalText = "$medication ankomst: d.6/7"
+                            TextField(
+                                value = arrivalText,
+                                onValueChange = { },
+                                label = { Text("$medication Ankomst") },
+                                readOnly = true,
+                                modifier = Modifier.padding(16.dp)
+                            )
+                        }
+                    }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            showConfirmationButton = false
+                            showOrderConfirmed = true
+                        }
+                    ) {
+                        Text("Bekræft")
+                    }
+                },
+                dismissButton = {
+                    Button(
+                        onClick = {
+                            showConfirmationButton = false
+                            showOrderButton = true
+                        }
+                    ) {
+                        Text("Annuller")
+                    }
+                }
+            )
         }
     }
 }
@@ -206,5 +207,3 @@ fun OrderPage() {
         content = { OrderContent() }
     )
 }
-
-

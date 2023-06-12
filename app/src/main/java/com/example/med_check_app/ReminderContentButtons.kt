@@ -87,7 +87,7 @@ fun ReminderContentButtons() {
             .setPositiveButton("Fortsæt") { _, _ ->
                 selectedFrequency = frequencyOptions[spinner.selectedItemPosition]
                 isAlertDialogVisible = false
-                isTimePickerVisible = true
+                isTimePickerVisible = selectedFrequency != "Vælg"
                 clockDialogCounter = when (selectedFrequency) {
                     "Hver dag", "Hver 2 dag", "Hver 3 dag",
                     "Hver 4 dag", "Hver 5 dag", "Hver 6 dag", "Hver 7 dag" -> 1
@@ -99,6 +99,8 @@ fun ReminderContentButtons() {
             }
             .setNegativeButton("Annuller") { _, _ ->
                 isAlertDialogVisible = false
+                isTimePickerVisible = false // Close the clock dialog
+                clockDialogCounter = 0
             }
             .show()
     }
