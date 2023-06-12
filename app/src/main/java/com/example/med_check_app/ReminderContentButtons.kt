@@ -30,10 +30,13 @@ fun ReminderContentButtons() {
     var selectedTime by remember { mutableStateOf("") }
     var isAlertDialogVisible by remember { mutableStateOf(false) }
     var selectedFrequency by remember { mutableStateOf("") }
+    var clockDialogCounter by remember { mutableStateOf(0) }
 
-    val frequencyOptions = arrayOf("Vælg", "4 gange om dagen", "3 gange om dagen",
+    val frequencyOptions = arrayOf(
+        "Vælg", "4 gange om dagen", "3 gange om dagen",
         "2 gange om dagen", "Hver dag", "Hver 2 dag", "Hver 3 dag",
-        "Hver 4 dag", "Hver 5 dag", "Hver 6 dag", "Hver 7 dag")
+        "Hver 4 dag", "Hver 5 dag", "Hver 6 dag", "Hver 7 dag"
+    )
 
     Column(modifier = Modifier.padding(16.dp)) {
         tasks.forEachIndexed { index, task ->
@@ -78,6 +81,14 @@ fun ReminderContentButtons() {
                 selectedFrequency = frequencyOptions[spinner.selectedItemPosition]
                 isAlertDialogVisible = false
                 isTimePickerVisible = true
+                clockDialogCounter = when (selectedFrequency) {
+                    "Hver dag", "Hver 2 dag", "Hver 3 dag",
+                    "Hver 4 dag", "Hver 5 dag", "Hver 6 dag", "Hver 7 dag" -> 1
+                    "2 gange om dagen" -> 2
+                    "3 gange om dagen" -> 3
+                    "4 gange om dagen" -> 4
+                    else -> 0
+                }
             }
             .setNegativeButton("Annuller") { _, _ ->
                 isAlertDialogVisible = false
@@ -85,13 +96,16 @@ fun ReminderContentButtons() {
             .show()
     }
 
-    if (isTimePickerVisible) {
+    if (isTimePickerVisible && clockDialogCounter > 0) {
         LaunchedEffect(isTimePickerVisible) {
-            val time = showTimePickerDialog(context)
-            if (time != null) {
-                selectedTime = time
+            repeat(clockDialogCounter) {
+                val time = showTimePickerDialog(context)
+                if (time != null) {
+                    selectedTime = time
+                }
             }
             isTimePickerVisible = false
+            clockDialogCounter = 0
         }
     }
 }
