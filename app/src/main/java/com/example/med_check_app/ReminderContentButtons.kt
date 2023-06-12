@@ -66,5 +66,4 @@ fun ReminderContentButtons() {
             isTimePickerVisible = false
         }
     }
-
 }
