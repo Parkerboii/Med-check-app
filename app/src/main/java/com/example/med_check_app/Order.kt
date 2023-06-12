@@ -28,7 +28,7 @@ fun OrderContent() {
         mutableStateListOf("Paracetamol", "Morfin", "Propanolol", "Terbutalin","Paracetamol", "Morfin", "Propanolol", "Terbutalin","Paracetamol", "Morfin", "Propanolol", "Terbutalin")
     }
     val selectedMedications = remember { mutableStateListOf<String>() }
-    var isButtonGreen by remember { mutableStateOf(false) }
+    var isButtonPurple by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -56,12 +56,12 @@ fun OrderContent() {
                             }
                             showOrderButton = selectedMedications.isNotEmpty()
                             showConfirmationButton = false
-                            isButtonGreen = showOrderButton
+                            isButtonPurple = showOrderButton
                         }
                         .padding(8.dp)
                         .border(
                             width = 1.dp,
-                            color = if (isSelected) Color.Green else Color.Gray,
+                            color = if (isSelected) Color(0xFF6200EE) else Color.Gray,
                             shape = RoundedCornerShape(8.dp)
                         )
                 ) {
@@ -77,7 +77,7 @@ fun OrderContent() {
                                 }
                                 showOrderButton = selectedMedications.isNotEmpty()
                                 showConfirmationButton = false
-                                isButtonGreen = showOrderButton
+                                isButtonPurple = showOrderButton
                             },
                             modifier = Modifier.padding(end = 8.dp)
                         )
@@ -96,7 +96,7 @@ fun OrderContent() {
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
                     contentDescription = "Bestilling bekræftet",
-                    tint = Color.Green,
+                    tint = Color(0xFF6200EE),
                     modifier = Modifier.size(100.dp)
                 )
                 Text("Bestilling bekræftet", fontSize = 30.sp)
@@ -132,15 +132,15 @@ fun OrderContent() {
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (isButtonGreen) Color.Green else Color.Gray,
-                    contentColor = Color.Black
+                    backgroundColor = if (isButtonPurple) Color(0xFF6200EE) else Color.Gray,
+                    contentColor = Color.White
                 ),
                 modifier = Modifier.width(200.dp),
                 onClick = {
                     if (selectedMedications.isNotEmpty()) {
                         showConfirmationButton = true
                         showOrderButton = false
-                        isButtonGreen = showOrderButton
+                        isButtonPurple = showOrderButton
                     }
                 }
             ) {
@@ -153,7 +153,7 @@ fun OrderContent() {
                 onDismissRequest = {
                     showConfirmationButton = false
                     showOrderButton = true
-                    isButtonGreen = showOrderButton
+                    isButtonPurple = showOrderButton
                 },
                 title = {
                     Text(text = "Valgte Mediciner")
@@ -189,7 +189,7 @@ fun OrderContent() {
                         onClick = {
                             showConfirmationButton = false
                             showOrderButton = true
-                            isButtonGreen = showOrderButton
+                            isButtonPurple = showOrderButton
                         }
                     ) {
                         Text("Annuller")
