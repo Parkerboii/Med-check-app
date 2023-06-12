@@ -46,6 +46,7 @@ fun MedicinTopBar() {
  */
 package com.example.med_check_app
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -107,7 +108,6 @@ fun MedicinContent() {
 @Composable
 fun MedicinContent() {
     var selectedOption by remember { mutableStateOf("") }
-    var textFieldValue by remember { mutableStateOf("") }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,28 +115,56 @@ fun MedicinContent() {
         modifier = Modifier.fillMaxSize()
     ) {
         Button(
-            onClick = { selectedOption = "Paracetamol: Til voksne er den sædvanlige dosis 2 tabletter (1 gram) 3-4 gange dagligt. Hvis du har konstante smerter, anbefaler vi, at du tager dine tabletter i faste doser fordelt over døgnets timer." },
+            onClick = {
+                if (selectedOption == "Paracetamol: Til voksne er den sædvanlige dosis 2 tabletter (1 gram) 3-4 gange dagligt. Hvis du har konstante smerter, anbefaler vi, at du tager dine tabletter i faste doser fordelt over døgnets timer.") {
+                    selectedOption = ""
+                } else {
+                    selectedOption =
+                        "Paracetamol: Til voksne er den sædvanlige dosis 2 tabletter (1 gram) 3-4 gange dagligt. Hvis du har konstante smerter, anbefaler vi, at du tager dine tabletter i faste doser fordelt over døgnets timer."
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Paracetamol")
         }
 
         Button(
-            onClick = { selectedOption = "Morfin: Morfin og andre opioider kan påvirke ens hukommelses- og koncentrationsevne, og man kan blive konfus eller døsig. Man kan også opleve hudkløe, sved, mundtørhed og svimmelhed." },
+            onClick = {
+                if (selectedOption == "Morfin: Morfin og andre opioider kan påvirke ens hukommelses- og koncentrationsevne, og man kan blive konfus eller døsig. Man kan også opleve hudkløe, sved, mundtørhed og svimmelhed.") {
+                    selectedOption = ""
+                } else {
+                    selectedOption =
+                        "Morfin: Morfin og andre opioider kan påvirke ens hukommelses- og koncentrationsevne, og man kan blive konfus eller døsig. Man kan også opleve hudkløe, sved, mundtørhed og svimmelhed."
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Morfin")
         }
 
         Button(
-            onClick = { selectedOption = "Propanolol: Propranolol bruges mod mod forhøjet blodtryk. mod hjerterytmeforstyrrelser. til forebyggelse af hjertekrampe. forebyggende til personer, der har haft en blodprop i hjertet." },
+            onClick = {
+                if (selectedOption == "Propanolol: Propranolol bruges mod mod forhøjet blodtryk. mod hjerterytmeforstyrrelser. til forebyggelse af hjertekrampe. forebyggende til personer, der har haft en blodprop i hjertet.") {
+                    selectedOption = ""
+                } else {
+                    selectedOption =
+                        "Propanolol: Propranolol bruges mod mod forhøjet blodtryk. mod hjerterytmeforstyrrelser. til forebyggelse af hjertekrampe. forebyggende til personer, der har haft en blodprop i hjertet."
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Propanolol")
+            Text(text = "Propanolol ")
         }
 
         Button(
-            onClick = { selectedOption = "Terbutalin: Den virker ved at afslappe og udvide musklerne rundt om dine luftveje, som gør det muligt for dem at åbne op. Dette hjælper dig med lettere at trække vejret." },
+            onClick = {
+                if (selectedOption == "Terbutalin: Den virker ved at afslappe og udvide musklerne rundt om dine luftveje, som gør det muligt for dem at åbne op. Dette hjælper dig med lettere at trække vejret.") {
+                    selectedOption = ""
+                } else {
+                    selectedOption =
+                        "Terbutalin: Den virker ved at afslappe og udvide musklerne rundt om dine luftveje, som gør det muligt for dem at åbne op. Dette hjælper dig med lettere at trække vejret."
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Terbutalin")
@@ -155,6 +183,9 @@ fun MedicinContent() {
 }
 
 
+
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MedicinPage() {
     Scaffold(
