@@ -1,5 +1,6 @@
 package com.example.med_check_app
 
+import MedicinPage
 import OrderPage
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
