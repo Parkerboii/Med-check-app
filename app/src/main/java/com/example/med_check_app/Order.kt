@@ -1,5 +1,3 @@
-package com.example.med_check_app
-
 import android.annotation.SuppressLint
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -30,6 +28,7 @@ fun OrderContent() {
         mutableStateListOf("Paracetamol", "Morfin", "Propanolol", "Terbutalin","Paracetamol", "Morfin", "Propanolol", "Terbutalin","Paracetamol", "Morfin", "Propanolol", "Terbutalin")
     }
     val selectedMedications = remember { mutableStateListOf<String>() }
+    var isButtonGreen by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -57,18 +56,29 @@ fun OrderContent() {
                             }
                             showOrderButton = selectedMedications.isNotEmpty()
                             showConfirmationButton = false
+                            isButtonGreen = showOrderButton
                         }
                         .padding(8.dp)
                         .border(
                             width = 1.dp,
-                            color = Color.Gray,
+                            color = if (isSelected) Color.Green else Color.Gray,
                             shape = RoundedCornerShape(8.dp)
                         )
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Checkbox(
                             checked = isSelected,
-                            onCheckedChange = { isSelected = it },
+                            onCheckedChange = {
+                                isSelected = it
+                                if (isSelected) {
+                                    selectedMedications.add(medication)
+                                } else {
+                                    selectedMedications.remove(medication)
+                                }
+                                showOrderButton = selectedMedications.isNotEmpty()
+                                showConfirmationButton = false
+                                isButtonGreen = showOrderButton
+                            },
                             modifier = Modifier.padding(end = 8.dp)
                         )
                         Text(text = medication)
@@ -122,7 +132,7 @@ fun OrderContent() {
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (showOrderButton) Color.Green else Color.Gray,
+                    backgroundColor = if (isButtonGreen) Color.Green else Color.Gray,
                     contentColor = Color.Black
                 ),
                 modifier = Modifier.width(200.dp),
@@ -130,6 +140,7 @@ fun OrderContent() {
                     if (selectedMedications.isNotEmpty()) {
                         showConfirmationButton = true
                         showOrderButton = false
+                        isButtonGreen = showOrderButton
                     }
                 }
             ) {
@@ -142,6 +153,7 @@ fun OrderContent() {
                 onDismissRequest = {
                     showConfirmationButton = false
                     showOrderButton = true
+                    isButtonGreen = showOrderButton
                 },
                 title = {
                     Text(text = "Valgte Mediciner")
@@ -177,6 +189,7 @@ fun OrderContent() {
                         onClick = {
                             showConfirmationButton = false
                             showOrderButton = true
+                            isButtonGreen = showOrderButton
                         }
                     ) {
                         Text("Annuller")
