@@ -23,7 +23,7 @@ fun showTimePickerDialog(context: Context): String? {
         true
     )
 
-    timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, "Cancel") { dialog, _ ->
+    timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, "Annuller") { dialog, _ ->
         dialog.dismiss()
     }
 
