@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:256516390372:android:63f21c4526c824ca8b5bf1",
+        "mobilesdk_app_id": "1:256516390372:android:f857d047d36a08858b5bf1",
         "android_client_info": {
-          "package_name": "com.thebois"
+          "package_name": "com.example.med_check_app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "256516390372-i5b2tsuip1bd4s3isei6fic87e254d1l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.med_check_app",
+            "certificate_hash": "958c51573d442c8c5d529e25b31781b271159bf3"
+          }
+        },
         {
           "client_id": "256516390372-qgv2dg56ed5poq7fgq561tra6gp4gdte.apps.googleusercontent.com",
           "client_type": 3
