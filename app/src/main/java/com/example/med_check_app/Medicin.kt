@@ -153,7 +153,7 @@ fun MedicinContent() {
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Propanolol")
+            Text(text = "Propanolol ")
         }
 
         Button(
