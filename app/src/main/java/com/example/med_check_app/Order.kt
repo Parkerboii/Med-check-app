@@ -25,9 +25,20 @@ fun OrderContent() {
     var showOrderConfirmed by remember { mutableStateOf(false) }
 
     val medications = remember {
-        mutableStateListOf("Paracetamol", "Morfin", "Propanolol", "Terbutalin","Paracetamol", "Morfin", "Propanolol", "Terbutalin","Paracetamol", "Morfin", "Propanolol", "Terbutalin")
+        mutableStateListOf(
+            "Paracetamol", "Morfin", "Propanolol", "Terbutalin",
+            "452535", "Mgaraegegren", "325refdl", "324fewswfn",
+            "86utyhgf", "fsdefgw32", "gernjke", "2fe efwfwe", "KAMLKFM", "Jnujnse"
+        )
     }
     val selectedMedications = remember { mutableStateListOf<String>() }
+    val medicationSelectionState = remember {
+        mutableStateMapOf<String, Boolean>().apply {
+            medications.forEach { medication ->
+                this[medication] = false
+            }
+        }
+    }
     var isButtonPurple by remember { mutableStateOf(false) }
 
     Box(
@@ -37,7 +48,7 @@ fun OrderContent() {
             modifier = Modifier.padding(bottom = 100.dp)
         ) {
             items(medications) { medication ->
-                var isSelected by remember { mutableStateOf(false) }
+                val isSelected = medicationSelectionState[medication] ?: false
 
                 Column(
                     modifier = Modifier
@@ -48,8 +59,10 @@ fun OrderContent() {
                             shape = RoundedCornerShape(8.dp)
                         )
                         .clickable {
-                            isSelected = !isSelected
-                            if (isSelected) {
+                            val newSelectionState = !isSelected
+                            medicationSelectionState[medication] = newSelectionState
+
+                            if (newSelectionState) {
                                 selectedMedications.add(medication)
                             } else {
                                 selectedMedications.remove(medication)
@@ -61,16 +74,17 @@ fun OrderContent() {
                         .padding(8.dp)
                         .border(
                             width = 1.dp,
-                            color = if (isSelected) Color(0xFF6200EE) else Color.Gray,
+                            color = if (isSelected) Color(0xFF6200EE) else Color.Black,
                             shape = RoundedCornerShape(8.dp)
                         )
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Checkbox(
                             checked = isSelected,
-                            onCheckedChange = {
-                                isSelected = it
-                                if (isSelected) {
+                            onCheckedChange = { newSelectionState ->
+                                medicationSelectionState[medication] = newSelectionState
+
+                                if (newSelectionState) {
                                     selectedMedications.add(medication)
                                 } else {
                                     selectedMedications.remove(medication)
@@ -83,6 +97,7 @@ fun OrderContent() {
                         )
                         Text(text = medication)
                     }
+                    Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.padding(horizontal = 16.dp))
                 }
             }
         }
@@ -154,23 +169,35 @@ fun OrderContent() {
                     showConfirmationButton = false
                     showOrderButton = true
                     isButtonPurple = showOrderButton
+                    selectedMedications.clear()
+                    medicationSelectionState.keys.forEach { medication ->
+                        medicationSelectionState[medication] = false
+                    }
                 },
                 title = {
                     Text(text = "Valgte Mediciner")
                 },
                 text = {
-                    Column(
-                        modifier = Modifier.verticalScroll(rememberScrollState())
-                    ) {
-                        selectedMedications.forEach { medication ->
-                            val arrivalText = "$medication ankomst: d.6/7"
-                            TextField(
-                                value = arrivalText,
-                                onValueChange = { },
-                                label = { Text("$medication Ankomst") },
-                                readOnly = true,
-                                modifier = Modifier.padding(16.dp)
-                            )
+                    Box(modifier = Modifier.height(200.dp)) { // Set a fixed height for the Box
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(selectedMedications) { medication ->
+                                Text(
+                                    text = "$medication : Ankomst 6/7",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp)
+                                        .border(
+                                            width = 1.dp,
+                                            color = Color.LightGray,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
+                                        .background(Color.White)
+                                        .padding(8.dp)
+                                )
+                            }
                         }
                     }
                 },
@@ -179,6 +206,10 @@ fun OrderContent() {
                         onClick = {
                             showConfirmationButton = false
                             showOrderConfirmed = true
+                            selectedMedications.clear()
+                            medicationSelectionState.keys.forEach { medication ->
+                                medicationSelectionState[medication] = false
+                            }
                         }
                     ) {
                         Text("Bekræft")
@@ -190,6 +221,10 @@ fun OrderContent() {
                             showConfirmationButton = false
                             showOrderButton = true
                             isButtonPurple = showOrderButton
+                            selectedMedications.clear()
+                            medicationSelectionState.keys.forEach { medication ->
+                                medicationSelectionState[medication] = false
+                            }
                         }
                     ) {
                         Text("Annuller")
@@ -197,6 +232,7 @@ fun OrderContent() {
                 }
             )
         }
+
     }
 }
 
