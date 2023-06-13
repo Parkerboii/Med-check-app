@@ -117,6 +117,7 @@ fun ReminderContentButtons() {
             clockDialogCounter = 0
         }
     }
+
 }
 
 @Composable
