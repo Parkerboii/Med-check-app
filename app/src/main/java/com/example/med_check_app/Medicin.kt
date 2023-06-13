@@ -2,23 +2,16 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.example.med_check_app.data.DataViewModel
-import kotlinx.coroutines.delay
 
 @Composable
 fun MedicinContent(dataViewModel: DataViewModel = viewModel()) {
@@ -142,6 +135,15 @@ fun MedicinContent(dataViewModel: DataViewModel = viewModel()) {
                     )
                 }
             }
+        }
+        if (selectedOption.isNotEmpty()){
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable {
+                        selectedOption = ""
+                    }
+            )
         }
     }
 }
