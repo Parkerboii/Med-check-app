@@ -24,8 +24,5 @@ fun Navigation() {
         composable(route = Screen.OrderPage.route){
             OrderPage()
         }
-        composable(route = Screen.DataScreen.route){
-            DataScreen()
-        }
     }
 }

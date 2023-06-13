@@ -15,11 +15,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.med_check_app.data.DataScreen
+import com.example.med_check_app.data.DataViewModel
 import kotlinx.coroutines.delay
 
 @Composable
-fun MedicinContent() {
+fun MedicinContent(dataViewModel: DataViewModel = viewModel()) {
     var selectedOption by remember { mutableStateOf("") }
 
     Box(
@@ -34,10 +37,11 @@ fun MedicinContent() {
                         .fillMaxWidth()
                         .padding(16.dp)
                         .clickable {
-                            selectedOption = "Paracetamol: Til voksne er den sædvanlige dosis 2 tabletter (1 gram) 3-4 gange dagligt. Hvis du har konstante smerter, anbefaler vi, at du tager dine tabletter i faste doser fordelt over døgnets timer."
+                            selectedOption = "Paracetamol"
+                            dataViewModel.getData(selectedOption)
                         },
                     shape = RoundedCornerShape(8.dp),
-                    border = BorderStroke(1.dp, if (selectedOption == "Paracetamol: Til voksne er den sædvanlige dosis 2 tabletter (1 gram) 3-4 gange dagligt. Hvis du har konstante smerter, anbefaler vi, at du tager dine tabletter i faste doser fordelt over døgnets timer.") Color(0xFF6200EE) else Color.Gray)
+                    border = BorderStroke(1.dp, if (selectedOption == "Paracetamol") Color(0xFF6200EE) else Color.Gray)
                 ) {
                     Text(
                         text = "Paracetamol",
@@ -45,9 +49,9 @@ fun MedicinContent() {
                         modifier = Modifier.padding(16.dp)
                     )
                 }
-                if (selectedOption == "Paracetamol: Til voksne er den sædvanlige dosis 2 tabletter (1 gram) 3-4 gange dagligt. Hvis du har konstante smerter, anbefaler vi, at du tager dine tabletter i faste doser fordelt over døgnets timer.") {
+                if (selectedOption == "Paracetamol") {
                     TextField(
-                        value = selectedOption,
+                        value = dataViewModel.state.value.Description,
                         onValueChange = { /* No-op */ },
                         label = { Text(text = "Medicin forklaring") },
                         readOnly = true,
@@ -61,10 +65,11 @@ fun MedicinContent() {
                         .fillMaxWidth()
                         .padding(16.dp)
                         .clickable {
-                            selectedOption = "Morfin: Morfin og andre opioider kan påvirke ens hukommelses- og koncentrationsevne, og man kan blive konfus eller døsig. Man kan også opleve hudkløe, sved, mundtørhed og svimmelhed."
+                            selectedOption = "Morfin"
+                            dataViewModel.getData(selectedOption)
                         },
                     shape = RoundedCornerShape(8.dp),
-                    border = BorderStroke(1.dp, if (selectedOption == "Morfin: Morfin og andre opioider kan påvirke ens hukommelses- og koncentrationsevne, og man kan blive konfus eller døsig. Man kan også opleve hudkløe, sved, mundtørhed og svimmelhed.") Color(0xFF6200EE) else Color.Gray)
+                    border = BorderStroke(1.dp, if (selectedOption == "Morfin") Color(0xFF6200EE) else Color.Gray)
                 ) {
                     Text(
                         text = "Morfin",
@@ -72,9 +77,9 @@ fun MedicinContent() {
                         modifier = Modifier.padding(16.dp)
                     )
                 }
-                if (selectedOption == "Morfin: Morfin og andre opioider kan påvirke ens hukommelses- og koncentrationsevne, og man kan blive konfus eller døsig. Man kan også opleve hudkløe, sved, mundtørhed og svimmelhed.") {
+                if (selectedOption == "Morfin") {
                     TextField(
-                        value = selectedOption,
+                        value = dataViewModel.state.value.Description,
                         onValueChange = { /* No-op */ },
                         label = { Text(text = "Medicin forklaring") },
                         readOnly = true,
@@ -88,10 +93,11 @@ fun MedicinContent() {
                         .fillMaxWidth()
                         .padding(16.dp)
                         .clickable {
-                            selectedOption = "Propanolol: Propranolol er et middel mod for højt blodtryk, angina pectoris og hjerterytmeforstyrrelser. Det er også et effektivt middel mod migræne."
+                            selectedOption = "Propanolol"
+                            dataViewModel.getData(selectedOption)
                         },
                     shape = RoundedCornerShape(8.dp),
-                    border = BorderStroke(1.dp, if (selectedOption == "Propanolol: Propranolol er et middel mod for højt blodtryk, angina pectoris og hjerterytmeforstyrrelser. Det er også et effektivt middel mod migræne.") Color(0xFF6200EE) else Color.Gray)
+                    border = BorderStroke(1.dp, if (selectedOption == "Propanolol") Color(0xFF6200EE) else Color.Gray)
                 ) {
                     Text(
                         text = "Propanolol",
@@ -99,9 +105,9 @@ fun MedicinContent() {
                         modifier = Modifier.padding(16.dp)
                     )
                 }
-                if (selectedOption == "Propanolol: Propranolol er et middel mod for højt blodtryk, angina pectoris og hjerterytmeforstyrrelser. Det er også et effektivt middel mod migræne.") {
+                if (selectedOption == "Propanolol") {
                     TextField(
-                        value = selectedOption,
+                        value = dataViewModel.state.value.Description,
                         onValueChange = { /* No-op */ },
                         label = { Text(text = "Medicin forklaring") },
                         readOnly = true,
@@ -115,10 +121,11 @@ fun MedicinContent() {
                         .fillMaxWidth()
                         .padding(16.dp)
                         .clickable {
-                            selectedOption = "Terbutalin: Terbutalin anvendes ved astma, som er en lungesygdom. Astma skyldes en inflammation, dvs. en betændelsestilstand, i luftvejene."
+                            selectedOption = "Terbutalin"
+                            dataViewModel.getData(selectedOption)
                         },
                     shape = RoundedCornerShape(8.dp),
-                    border = BorderStroke(1.dp, if (selectedOption == "Terbutalin: Terbutalin anvendes ved astma, som er en lungesygdom. Astma skyldes en inflammation, dvs. en betændelsestilstand, i luftvejene.") Color(0xFF6200EE) else Color.Gray)
+                    border = BorderStroke(1.dp, if (selectedOption == "Terbutalin") Color(0xFF6200EE) else Color.Gray)
                 ) {
                     Text(
                         text = "Terbutalin",
@@ -126,9 +133,9 @@ fun MedicinContent() {
                         modifier = Modifier.padding(16.dp)
                     )
                 }
-                if (selectedOption == "Terbutalin: Terbutalin anvendes ved astma, som er en lungesygdom. Astma skyldes en inflammation, dvs. en betændelsestilstand, i luftvejene.") {
+                if (selectedOption == "Terbutalin") {
                     TextField(
-                        value = selectedOption,
+                        value = dataViewModel.state.value.Description,
                         onValueChange = { /* No-op */ },
                         label = { Text(text = "Medicin forklaring") },
                         readOnly = true,
@@ -136,16 +143,6 @@ fun MedicinContent() {
                     )
                 }
             }
-        }
-
-        if (selectedOption.isNotEmpty()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clickable {
-                        selectedOption = ""
-                    }
-            )
         }
     }
 }

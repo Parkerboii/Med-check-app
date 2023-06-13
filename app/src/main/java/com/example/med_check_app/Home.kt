@@ -72,8 +72,5 @@ fun HomeScreen(navController: NavController){
             onClick = { navController.navigate((Screen.OrderPage.route)) }) {
             Text("Bestil Medicin", fontSize = 30.sp)
         }
-        Button(onClick = { navController.navigate((Screen.DataScreen.route)) }) {
-            Text("Bestil Medicin", fontSize = 30.sp)
-        }
     }
 }

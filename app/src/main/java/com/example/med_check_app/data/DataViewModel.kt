@@ -14,13 +14,8 @@ import kotlinx.coroutines.tasks.await
 class DataViewModel: ViewModel(){
     val state = mutableStateOf(Reminder())
 
-    init {
-        getData()
-    }
-
-    private fun getData(medType:String){
+    fun getData(medicinName: String){
         viewModelScope.launch {
-            val medicinName = medType
             state.value = getMedicinDescription(medicinName)
         }
     }
@@ -31,10 +26,13 @@ suspend fun getMedicinDescription(medicinName: String):Reminder{
     var Medicin = Reminder()
 
     try {
-        db.collection("Medicin").whereEqualTo("Name", medicinName).get().await().map {
-            val result = it.toObject(Reminder::class.java)
-            Medicin = result
-        }
+        db.collection("Medicin")
+            .whereEqualTo("Name", medicinName)
+            .get()
+            .await().map {
+                val result = it.toObject(Reminder::class.java)
+                Medicin = result
+            }
     }catch (e: FirebaseFirestoreException){
         Log.d("error", "getMedicinDescription: $e")
     }
