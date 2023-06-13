@@ -174,64 +174,78 @@ fun OrderContent() {
                         medicationSelectionState[medication] = false
                     }
                 },
-                title = {
-                    Text(text = "Valgte Mediciner")
-                },
-                text = {
-                    Box(modifier = Modifier.height(200.dp)) { // Set a fixed height for the Box
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                buttons = {
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        TopAppBar(
+                            title = {
+                                Text(text = "Valgte medikamenter")
+                            },
+                            backgroundColor = Color.White,
+                            elevation = AppBarDefaults.TopAppBarElevation
+                        )
+                        Box(
+                            modifier = Modifier.weight(1f)
                         ) {
-                            items(selectedMedications) { medication ->
-                                Text(
-                                    text = "$medication : Ankomst 6/7",
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(16.dp)
-                                        .border(
-                                            width = 1.dp,
-                                            color = Color.LightGray,
-                                            shape = RoundedCornerShape(8.dp)
-                                        )
-                                        .background(Color.White)
-                                        .padding(8.dp)
-                                )
+                            LazyColumn(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                items(selectedMedications) { medication ->
+                                    Text(
+                                        text = "$medication : Ankomst 6/7",
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(16.dp)
+                                            .border(
+                                                width = 1.dp,
+                                                color = Color.LightGray,
+                                                shape = RoundedCornerShape(8.dp)
+                                            )
+                                            .background(Color.White)
+                                            .padding(8.dp)
+                                    )
+                                }
                             }
                         }
-                    }
-                },
-                confirmButton = {
-                    Button(
-                        onClick = {
-                            showConfirmationButton = false
-                            showOrderConfirmed = true
-                            selectedMedications.clear()
-                            medicationSelectionState.keys.forEach { medication ->
-                                medicationSelectionState[medication] = false
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Button(
+                                onClick = {
+                                    showConfirmationButton = false
+                                    showOrderButton = true
+                                    isButtonPurple = showOrderButton
+                                    selectedMedications.clear()
+                                    medicationSelectionState.keys.forEach { medication ->
+                                        medicationSelectionState[medication] = false
+                                    }
+                                }
+                            ) {
+                                Text("Annuller")
+                            }
+                            Button(
+                                onClick = {
+                                    showConfirmationButton = false
+                                    showOrderConfirmed = true
+                                    selectedMedications.clear()
+                                    medicationSelectionState.keys.forEach { medication ->
+                                        medicationSelectionState[medication] = false
+                                    }
+                                }
+                            ) {
+                                Text("Bekræft")
                             }
                         }
-                    ) {
-                        Text("Bekræft")
-                    }
-                },
-                dismissButton = {
-                    Button(
-                        onClick = {
-                            showConfirmationButton = false
-                            showOrderButton = true
-                            isButtonPurple = showOrderButton
-                            selectedMedications.clear()
-                            medicationSelectionState.keys.forEach { medication ->
-                                medicationSelectionState[medication] = false
-                            }
-                        }
-                    ) {
-                        Text("Annuller")
                     }
                 }
             )
         }
+
 
     }
 }
