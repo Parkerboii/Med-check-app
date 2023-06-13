@@ -4,15 +4,13 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.med_check_app.data.Reminder
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class DataViewModel: ViewModel(){
-    val state = mutableStateOf(Reminder())
+    val state = mutableStateOf(MedicinData())
 
     fun getData(medicinName: String){
         viewModelScope.launch {
@@ -21,16 +19,16 @@ class DataViewModel: ViewModel(){
     }
 }
 
-suspend fun getMedicinDescription(medicinName: String):Reminder{
+suspend fun getMedicinDescription(medicinName: String):MedicinData{
     val db = FirebaseFirestore.getInstance()
-    var Medicin = Reminder()
+    var Medicin = MedicinData()
 
     try {
         db.collection("Medicin")
             .whereEqualTo("Name", medicinName)
             .get()
             .await().map {
-                val result = it.toObject(Reminder::class.java)
+                val result = it.toObject(MedicinData::class.java)
                 Medicin = result
             }
     }catch (e: FirebaseFirestoreException){
