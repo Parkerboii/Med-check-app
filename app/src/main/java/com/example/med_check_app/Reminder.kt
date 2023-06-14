@@ -30,17 +30,18 @@ fun ReminderContent() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
+                    text = "Medicin",
+                    style = MaterialTheme.typography.body1,
+                    fontSize = 23.sp,
+                    modifier = Modifier.weight(1f).padding(horizontal = 45.dp)
+                )
+                Text(
                     text = "Tid",
                     style = MaterialTheme.typography.body1,
                     fontSize = 23.sp,
                     modifier = Modifier.weight(1f).padding(horizontal = 60.dp)
                 )
-                Text(
-                    text = "Medicin",
-                    style = MaterialTheme.typography.body1,
-                    fontSize = 23.sp,
-                    modifier = Modifier.weight(1f).padding(horizontal = 10.dp)
-                )
+
             }
         }
         ReminderContentButtons()
