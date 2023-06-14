@@ -25,21 +25,21 @@ fun ReminderContent() {
         ) {
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .padding(horizontal = 25.dp, vertical = 8.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Text(
+                    text = "Medicin",
+                    style = MaterialTheme.typography.body1,
+                    fontSize = 23.sp,
+                    modifier = Modifier.weight(1f).padding(horizontal = 40.dp)
+                )
                 Text(
                     text = "Tid",
                     style = MaterialTheme.typography.body1,
                     fontSize = 23.sp,
                     modifier = Modifier.weight(1f).padding(horizontal = 60.dp)
-                )
-                Text(
-                    text = "Medicin",
-                    style = MaterialTheme.typography.body1,
-                    fontSize = 23.sp,
-                    modifier = Modifier.weight(1f).padding(horizontal = 10.dp)
                 )
             }
         }

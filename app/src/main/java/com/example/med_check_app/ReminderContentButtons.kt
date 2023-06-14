@@ -1,6 +1,10 @@
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.AlertDialog
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -19,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.med_check_app.showTimePickerDialog
+import java.text.SimpleDateFormat
 import java.util.*
 
 @SuppressLint("UnrememberedMutableState")
@@ -99,7 +104,7 @@ fun ReminderContentButtons() {
             }
             .setNegativeButton("Annuller") { _, _ ->
                 isAlertDialogVisible = false
-                isTimePickerVisible = false // Close the clock dialog
+                isTimePickerVisible = false
                 clockDialogCounter = 0
             }
             .show()
@@ -108,16 +113,41 @@ fun ReminderContentButtons() {
     if (isTimePickerVisible && clockDialogCounter > 0) {
         LaunchedEffect(isTimePickerVisible) {
             repeat(clockDialogCounter) {
-                val time = showTimePickerDialog(context)
-                if (time != null) {
-                    selectedTime = time
+                val timeString = showTimePickerDialog(context)
+                if (timeString != null) {
+                    val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                    val time = dateFormat.parse(timeString)
+                    selectedTime = timeString
+
+                    //Set Alarmen
+                    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val calendar = Calendar.getInstance()
+                    val currentTime = calendar.timeInMillis
+                    calendar.time = time
+
+                    if (calendar.timeInMillis > currentTime) {
+                        val intent = Intent(context, AlarmReceiver::class.java)
+                        intent.putExtra("task", selectedItem)
+
+                        val pendingIntent = PendingIntent.getBroadcast(
+                            context,
+                            0,
+                            intent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+
+                        alarmManager.set(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.timeInMillis,
+                            pendingIntent
+                        )
+                    }
                 }
             }
             isTimePickerVisible = false
             clockDialogCounter = 0
         }
     }
-
 }
 
 @Composable
