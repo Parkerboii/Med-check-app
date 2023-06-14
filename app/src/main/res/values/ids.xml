@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="login" type="id" />
+    <item name="brugernavn" type="id" />
+    <item name="kodeord" type="id" />
+    <item name="loginbtn" type="id" />
+    <item name="glemtlog" type="id" />
+    <item name="hjælptillog" type="id" />
+</resources>

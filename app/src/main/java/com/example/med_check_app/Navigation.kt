@@ -10,7 +10,10 @@ import  androidx.navigation.compose.rememberNavController
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route){
+    NavHost(navController = navController, startDestination = Screen.LoginPage.route){
+        composable(route = Screen.LoginPage.route){
+            LoginPage(navController = navController)
+        }
         composable(route = Screen.MainScreen.route){
             HomePage(navController = navController)
         }

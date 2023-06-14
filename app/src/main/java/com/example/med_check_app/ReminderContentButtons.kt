@@ -89,9 +89,9 @@ fun ReminderContentButtons() {
                 isAlertDialogVisible = false
                 isTimePickerVisible = selectedFrequency != "Vælg"
                 clockDialogCounter = when (selectedFrequency) {
-                    "Hver dag", "Hver 2 dag", "Hver 3 dag",
+                    "Hver dag", "Hver 3 dag",
                     "Hver 4 dag", "Hver 5 dag", "Hver 6 dag", "Hver 7 dag" -> 1
-                    "2 gange om dagen" -> 2
+                    "2 gange om dagen", "Hver 2 dag" -> 2
                     "3 gange om dagen" -> 3
                     "4 gange om dagen" -> 4
                     else -> 0
@@ -106,7 +106,7 @@ fun ReminderContentButtons() {
     }
 
     if (isTimePickerVisible && clockDialogCounter > 0) {
-        LaunchedEffect(isTimePickerVisible) {
+        LaunchedEffect(clockDialogCounter) {
             repeat(clockDialogCounter) {
                 val time = showTimePickerDialog(context)
                 if (time != null) {
@@ -117,8 +117,9 @@ fun ReminderContentButtons() {
             clockDialogCounter = 0
         }
     }
-
 }
+
+
 
 @Composable
 private fun createSpinner(context: Context, options: Array<String>, selectedItem: String): Spinner {
