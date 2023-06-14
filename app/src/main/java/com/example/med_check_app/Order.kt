@@ -165,6 +165,7 @@ fun OrderContent() {
 
         if (showConfirmationButton) {
             AlertDialog(
+                modifier = Modifier.fillMaxHeight(0.7f),
                 onDismissRequest = {
                     showConfirmationButton = false
                     showOrderButton = true
@@ -197,7 +198,7 @@ fun OrderContent() {
                                         text = "$medication : Ankomst 6/7",
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(16.dp)
+                                            .padding(8.dp)
                                             .border(
                                                 width = 1.dp,
                                                 color = Color.LightGray,
