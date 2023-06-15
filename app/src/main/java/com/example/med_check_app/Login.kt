@@ -14,27 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-/*@Composable
-fun LoginPage(navController: NavController) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(text = "")
-    }
-    Button(
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = androidx.compose.ui.graphics.Color.Gray,
-            contentColor = androidx.compose.ui.graphics.Color.Black),
-        modifier = Modifier
-            .width(300.dp)
-            .padding(20.dp),
-        onClick = { navController.navigate((Screen.MainScreen.route)) }) {
-        Text("Login", fontSize = 30.sp)
-    }
-}
- */
+
 @Composable
 fun LoginPage(navController: NavController) {
     val username = remember { mutableStateOf("") }
