@@ -49,10 +49,6 @@ fun ReminderContentButtons() {
                 Column(
                     modifier = Modifier
                         .padding(bottom = 8.dp)
-                        .background(
-                            color = Color.White,
-                            shape = MaterialTheme.shapes.medium
-                        )
                         .clickable {
                             selectedItem = task
                             isAlertDialogVisible = true

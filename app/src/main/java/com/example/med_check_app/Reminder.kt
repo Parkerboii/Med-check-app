@@ -41,7 +41,7 @@ fun ReminderContent() {
                 Text(
                     text = "Medicin",
                     style = MaterialTheme.typography.body1,
-                    fontSize = 23.sp,
+                    fontSize = 20.sp,
                     modifier = Modifier.weight(1f).padding(horizontal = 45.dp)
                 )
                 Text(

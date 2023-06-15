@@ -11,11 +11,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
 @Composable
@@ -54,10 +52,6 @@ fun OrderContent() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp)
-                        .background(
-                            color = Color.White,
-                            shape = RoundedCornerShape(8.dp)
-                        )
                         .clickable {
                             val newSelectionState = !isSelected
                             medicationSelectionState[medication] = newSelectionState
@@ -183,7 +177,6 @@ fun OrderContent() {
                             title = {
                                 Text(text = "Valgte medikamenter")
                             },
-                            backgroundColor = Color.White,
                             elevation = AppBarDefaults.TopAppBarElevation
                         )
                         Box(
@@ -204,7 +197,6 @@ fun OrderContent() {
                                                 color = Color.LightGray,
                                                 shape = RoundedCornerShape(8.dp)
                                             )
-                                            .background(Color.White)
                                             .padding(8.dp)
                                     )
                                 }
